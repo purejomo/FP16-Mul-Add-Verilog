@@ -1,3 +1,5 @@
+// float_multi_pipelined_v2.v
+
 module float_multi_pipelined_v2 (
   input  wire        clk,
   input  wire        rstn,       // active-low sync reset
@@ -326,6 +328,24 @@ module float_multi_pipelined_v2 (
       zero_r2q          <= zero_r2;
       NaN_r2q           <= NaN_r2;
       precisionLost_r2q <= precisionLost_r2;
+      
+      // Debug output for failed cases
+      if (v_s1 && (num1 == 16'h4689 && num2 == 16'h0025) || (num1 == 16'h4489 && num2 == 16'h001d)) begin
+        $display("[DEBUG] Time=%0t num1=0x%04h num2=0x%04h", $time, num1, num2);
+        $display("  exSum_prebais_r1=%0d exSum_r1=%0d exSum_sign_r1=%b", exSum_prebais_r1, exSum_r1, exSum_sign_r1);
+        $display("  res_full_preshift_r1=0x%06x float_res_preround_r1=0x%03x dump_res_r1=0x%03x", 
+                 res_full_preshift_r1, float_res_preround_r1, dump_res_r1);
+        $display("  res_full_r2=0x%06x float_res_r2=0x%03x subNormal_r2=%b", 
+                 res_full_r2, float_res_r2, subNormal_r2);
+        $display("  fraSub_r2=0x%03x exSubCor_r2=%0d ex_cannot_correct_r2=%b", 
+                 fraSub_r2, exSubCor_r2, ex_cannot_correct_r2);
+        $display("  fraSub_corrected_r2=0x%03x exR_calc_r2=%0d exR_r2=%0d", 
+                 fraSub_corrected_r2, exR_calc_r2, exR_r2);
+        $display("  fraR_r2=0x%03x result_r2=0x%04h precisionLost_r2=%b", 
+                 fraR_r2, result_r2, precisionLost_r2);
+        $display("  flags: overflow=%b zero=%b NaN=%b precisionLost=%b", 
+                 overflow_r2, zero_r2, NaN_r2, precisionLost_r2);
+      end
     end
   end
 
