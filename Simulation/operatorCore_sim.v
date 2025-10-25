@@ -41,17 +41,43 @@ module operatorCore_sim();
     
     initial //test cases here
         begin
+            $display("=== Operator Core Test (All Modules) ===");
             num1 <= 16'd27;
             num2 <= 16'd42;
             #250
+            $display("Test 1: num1=%d, num2=%d", num1, num2);
+            $display("  Fixed Adder: %d + %d = %d (overflow=%b)", num1, num2, fixA, overflow[0]);
+            $display("  Fixed Multi: %d * %d = %d (overflow=%b, precision=%b)", num1, num2, fixM, overflow[1], precisionLost);
+            $display("  Float Adder: %h + %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floA, overflow[3], zero, NaN, precisionLost);
+            $display("  Float Multi: %h * %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floM, overflow[2], zero, NaN, precisionLost);
+            
             num1 <= 16'd561;
             num2 <= 16'd158;
             #250
+            $display("Test 2: num1=%d, num2=%d", num1, num2);
+            $display("  Fixed Adder: %d + %d = %d (overflow=%b)", num1, num2, fixA, overflow[0]);
+            $display("  Fixed Multi: %d * %d = %d (overflow=%b, precision=%b)", num1, num2, fixM, overflow[1], precisionLost);
+            $display("  Float Adder: %h + %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floA, overflow[3], zero, NaN, precisionLost);
+            $display("  Float Multi: %h * %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floM, overflow[2], zero, NaN, precisionLost);
+            
             num1 <=  16'b1010101010001110;
             num2 <= 16'b0101011100100110;
             #250
+            $display("Test 3: num1=%h, num2=%h", num1, num2);
+            $display("  Fixed Adder: %h + %h = %h (overflow=%b)", num1, num2, fixA, overflow[0]);
+            $display("  Fixed Multi: %h * %h = %h (overflow=%b, precision=%b)", num1, num2, fixM, overflow[1], precisionLost);
+            $display("  Float Adder: %h + %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floA, overflow[3], zero, NaN, precisionLost);
+            $display("  Float Multi: %h * %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floM, overflow[2], zero, NaN, precisionLost);
+            
             num1 <= 16'b1111110110111010;
             num2 <= 16'b0100111001001111;
+            #250
+            $display("Test 4: num1=%h, num2=%h", num1, num2);
+            $display("  Fixed Adder: %h + %h = %h (overflow=%b)", num1, num2, fixA, overflow[0]);
+            $display("  Fixed Multi: %h * %h = %h (overflow=%b, precision=%b)", num1, num2, fixM, overflow[1], precisionLost);
+            $display("  Float Adder: %h + %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floA, overflow[3], zero, NaN, precisionLost);
+            $display("  Float Multi: %h * %h = %h (overflow=%b, zero=%b, NaN=%b, precision=%b)", num1, num2, floM, overflow[2], zero, NaN, precisionLost);
+            $display("=== Operator Core Test Complete ===");
             //#250
             //$finish;
         end

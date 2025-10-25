@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-
-#* Helper script for binary16 *#
-#*  Yigit Suoglu, 22/05/2021  *#
-
 import sys
 
 def split(value):

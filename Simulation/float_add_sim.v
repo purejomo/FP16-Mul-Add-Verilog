@@ -1,14 +1,3 @@
-/* ---------------------------------------------------- *
- * Title       : Floating Point Adder Simulation        *
- * Project     : Fixed Floating Point Adder Multiplier  *
- * ---------------------------------------------------- *
- * File        : float_add_sim.v                        *
- * Author      : Yigit Suoglu                           *
- * Last Edit   : 11/01/2021                               *
- * ---------------------------------------------------- *
- * Description : Simulation for Floating Point Adder    *
- * ---------------------------------------------------- */
-
 `timescale 1ns / 1ps
 //`include "Sources/adder-multiplier.v"
 
@@ -36,26 +25,42 @@ module flpa_sim();
 
   initial
     begin
+      $display("=== Floating Point Adder Test ===");
       //Bug
       {sign1, exp1, fra1} = 16'hc0b0;
       {sign2, exp2, fra2} = 16'h1cc0;
       result_expected = 16'hc0ae;
+      #10
+      $display("Test 1: num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       {sign1, exp1, fra1} = 16'h00e0;
       {sign2, exp2, fra2} = 16'h5060;
       result_expected = 16'h5060;
+      #10
+      $display("Test 2: num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       {sign1, exp1, fra1} = 16'h29a8;
       {sign2, exp2, fra2} = 16'he1f9;
       result_expected = 16'he1f9;
+      #10
+      $display("Test 3: num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       {sign1, exp1, fra1} = 16'h54a5;
       {sign2, exp2, fra2} = 16'h1cc0;
       result_expected = 16'h54a5;
+      #10
+      $display("Test 4: num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       {sign1, exp1, fra1} = 16'h00b8;
       {sign2, exp2, fra2} = 16'h0080;
       result_expected = 16'h0138;
+      #10
+      $display("Test 5: num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition with precision lost
       sign1 = 0;
@@ -65,6 +70,9 @@ module flpa_sim();
       fra1 = 10'b10100101;
       fra2 = 10'b11001100;
       result_expected = 16'h54ae;
+      #10
+      $display("Test 6 (Precision Lost): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition of two numbers with same exp
       sign1 = 0;
@@ -74,6 +82,9 @@ module flpa_sim();
       fra1 = 10'b10100000;
       fra2 = 10'b01101100;
       result_expected = 16'h1486;
+      #10
+      $display("Test 7 (Same Exp): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition without precision lost
       sign1 = 0;
@@ -83,6 +94,9 @@ module flpa_sim();
       fra1 = 10'b11100000;
       fra2 = 10'b01101001;
       result_expected = 16'h31a1;
+      #10
+      $display("Test 8 (No Precision Lost): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition diffrent signs without precision lost
       sign1 = 0;
@@ -92,6 +106,9 @@ module flpa_sim();
       fra1 = 10'b10101100;
       fra2 = 10'b00101101;
       result_expected = 16'h935c;
+      #10
+      $display("Test 9 (Diff Signs): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition diffrent signs without precision lost
       sign1 = 1;
@@ -101,6 +118,9 @@ module flpa_sim();
       fra1 = 10'b00001100;
       fra2 = 10'b11101100;
       result_expected = 16'h2b00;
+      #10
+      $display("Test 10 (Diff Signs Same Exp): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Addition diffrent signs without precision lost
       sign1 = 1;
@@ -110,6 +130,9 @@ module flpa_sim();
       fra1 = 10'b10101010;
       fra2 = 10'b10101100;
       result_expected = 16'h5400;
+      #10
+      $display("Test 11 (Large Numbers): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Zero flag
       sign1 = 1;
@@ -119,6 +142,9 @@ module flpa_sim();
       fra1 = 10'b10011101;
       fra2 = 10'b10011101;
       result_expected = 16'h8000;
+      #10
+      $display("Test 12 (Zero Flag): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //nan flag
       sign1 = 0;
@@ -128,6 +154,9 @@ module flpa_sim();
       fra1 = 10'b11111111;
       fra2 = 10'b11111111;
       result_expected = 16'h7cff;
+      #10
+      $display("Test 13 (NaN Flag): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Overflow flag
       sign1 = 0;
@@ -137,6 +166,9 @@ module flpa_sim();
       fra1 = 10'b1111111111;
       fra2 = 10'b1111111111;
       result_expected = 16'h7c00;
+      #10
+      $display("Test 14 (Overflow 1): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
       #100
       //Overflow flag
       sign1 = 0;
@@ -146,5 +178,10 @@ module flpa_sim();
       fra1 = 10'b0000000000;
       fra2 = 10'b1110000011;
       result_expected = 16'h7c00;
+      #10
+      $display("Test 15 (Overflow 2): num1=%h, num2=%h, result=%h, expected=%h, correct=%b", 
+               num1, num2, result, result_expected, correct);
+      #10
+      $display("=== Test Complete ===");
     end
 endmodule//module_name
